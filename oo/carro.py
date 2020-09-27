@@ -94,10 +94,34 @@ Exemplo:
     >>> carro.calcular_direcao()
     'Oeste'
 """
+class Carro:
+    def __init__(self, direcao, motor):
+        self.Direcao = direcao
+        self.Motor = motor
 
+    def calcular_velocidade(self):
+        return self.Motor.velocidade
 
-coordenadas = {'Nore':0, 'Leste':1, 'Sul':3, 'Oeste':3}
-conta = 0
+    def acelerar(self):
+        return self.Motor.acelerar()
+
+    def frear(self):
+        return self.Motor.frear()
+
+    def calcular_direcao(self):
+        return self.Direcao.valor
+
+    def girar_a_direita(self):
+        return self.Direcao.girar_a_direita()
+
+    def girar_a_esquerda(self):
+        return self.Direcao.girar_a_esquerda()
+
+NORTE = 'Norte'
+LESTE = 'Leste'
+OESTE = 'Oeste'
+SUL = 'Sul'
+
 class Motor:
     def __init__(self, velocidade=0):
         self.velocidade = velocidade
@@ -111,11 +135,14 @@ class Motor:
             self.velocidade = 0
 
 class Direcao:
-    def __init__(self, valor='Norte'):
-        self.valor = valor
+    rotacao_a_direita_dct = {NORTE: LESTE, LESTE: SUL, SUL: OESTE, OESTE: NORTE}
+    rotacao_a_esquerda_dct = {NORTE: OESTE, LESTE: NORTE, SUL: LESTE, OESTE: SUL}
+
+    def __init__(self):
+        self.valor = NORTE
 
     def girar_a_direita(self):
-        conta += 1
-        if conta > 3:
-            conta = 0
-        self.valor = get(valor, conta)
+        self.valor = self.rotacao_a_direita_dct[self.valor]
+
+    def girar_a_esquerda(self):
+        self.valor = self.rotacao_a_esquerda_dct[self.valor]
