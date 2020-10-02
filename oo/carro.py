@@ -131,8 +131,7 @@ class Motor:
 
     def frear(self):
         self.velocidade -= 2
-        if self.velocidade < 0:
-            self.velocidade = 0
+        self.velocidade = max(0, self.velocidade)
 
 class Direcao:
     rotacao_a_direita_dct = {NORTE: LESTE, LESTE: SUL, SUL: OESTE, OESTE: NORTE}
